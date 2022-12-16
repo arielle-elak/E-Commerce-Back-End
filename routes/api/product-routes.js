@@ -10,15 +10,15 @@ router.get('/', async (req, res) => {
     // find all products
     const productData = await Product.findAll(req.params.id, {
       // be sure to include its associated Category and Tag data
-      include: [{ model: Traveller, through: Trip, as: 'location_travellers' }]
+      include: [{ model: Category, through: ProductTag, as: "category_id" }],
     });
 
     if (!productData) {
-      res.status(404).json({ message: 'Please try again. No data found' });
+      res.status(404).json({ message: "Please try again. No data found" });
       return;
     }
 
-    res.status(200).json(locationData);
+    res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
