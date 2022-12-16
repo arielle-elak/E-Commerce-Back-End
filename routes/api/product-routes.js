@@ -3,24 +3,6 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
-
-router.get("/", (req, res) => {
-  Product.findAll({
-    include: [
-      Category,
-      {
-        model: Tag,
-        through: ProductTag,
-      },
-    ],
-  })
-    .then((products) => res.json(products))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
 // Get All Products
 router.get("/", async (req, res) => {
   try {
@@ -34,9 +16,7 @@ router.get("/", async (req, res) => {
         },
       ],
     });
-
-    console.log("Products: ", allProducts);
-
+    console.log("Finding All Products");
     // Confirm 200 response for request
     res.status(200).json(allProducts);
     // If error response
