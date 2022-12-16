@@ -15,9 +15,25 @@ Category.hasMany(Product, {
 });
 
 // Products belongToMany Tags (through ProductTag)
+// ProductTag being the intermediary third table to relate both sets of data
+Product.belongsToMany(Tag, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  as: 'tagged_products'
+})
 
 
 // Tags belongToMany Products (through ProductTag)
+// ProductTag being the intermediary third table to relate both sets of data
+Tag.belongsToMany(Product, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  as: 'product_tags'
+})
 
 module.exports = {
   Product,
