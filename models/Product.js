@@ -31,7 +31,7 @@ Product.init(
       allowNull: false,
       defaultValue: 10,
       validate: {
-        isINT: true
+        isNumeric: true
       }
 
     },
@@ -40,7 +40,6 @@ Product.init(
       references: {
         model: 'category',
         key: 'id',
-        unique: false
       }
 
     },
