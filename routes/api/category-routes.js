@@ -28,8 +28,17 @@ router.get('/:id', (req, res) => {
 });
 
 // Create New Category
+// Appropriate need to be updated with new category once created
 router.post('/', (req, res) => {
-  // create a new category
+  // Create a new category based on passed req body
+  /** Req body will look like this:
+   * {
+   *    "category_name": "Sports Balls"
+   * }
+   */
+  Category.create(req.body)
+    .then((newCategory) => res.status(200).json(newCategory))
+    .catch((err) => res.status(400).json(err));
 });
 
 router.put('/:id', (req, res) => {
