@@ -28,17 +28,15 @@ router.get("/", async (req, res) => {
 });
 
 
-
-
 // Get One Product
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
+    // Find one product, including the associated Category info, and the associated tags from product tag
     const oneProduct = await Product.findOne({
-      // find a single product by its `id`
       where: {
         id: req.params.id,
       },
-      inlude: [
+      include: [
         Category,
         {
           model: Tag,
@@ -56,6 +54,7 @@ router.get('/:id', async (req, res) => {
     res.status(400).json(err);
   }
 });
+
 
 // create new product
 router.post('/', (req, res) => {
