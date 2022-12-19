@@ -89,9 +89,9 @@ router.post('/', (req, res) => {
     });
 });
 
-// update product
+// Update a Product
 router.put('/:id', (req, res) => {
-  // update product data
+  // Use Requester Body to Update the fields for desired id
   Product.update(req.body, {
     where: {
       id: req.params.id,
@@ -131,8 +131,25 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+
+// Delete One Product
+router.delete("/:id", async (req, res) => {
+  try {
+    // Find one product by requested tag from URL
+    const deleteProduct = await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log("Deleting One Product");
+    // Confirm 200 response for request
+    res.status(200).json(deleteProduct);
+    // If error response
+  } catch (err) {
+    console.log(err);
+    // Show the specific error message
+    res.status(400).json(err);
+  }
 });
 
 module.exports = router;
